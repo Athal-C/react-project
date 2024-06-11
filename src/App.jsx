@@ -1,5 +1,6 @@
 import { useState } from "react";
 import "./style.css";
+import { List } from "./List";
 
 export default function App() {
   const [newItem, setNewItem] = useState("");
@@ -18,6 +19,12 @@ export default function App() {
     setNewItem("");
   }
 
+  function deleteTodo(id) {
+    setTodos((currentTodos) => {
+      return currentTodos.filter((todo) => todo.id !== id);
+    });
+  }
+
   function toggleTodo(id, completed) {
     setTodos((currentTodos) => {
       return currentTodos.map((todo) => {
@@ -27,12 +34,6 @@ export default function App() {
 
         return todo;
       });
-    });
-  }
-
-  function deleteTodo(id) {
-    setTodos((currentTodos) => {
-      return currentTodos.filter((todo) => todo.id !== id);
     });
   }
 
@@ -48,28 +49,18 @@ export default function App() {
             id='item'
           />
         </div>
-        <button className='btn btn-primary col-12 btn-add'>Add</button>
+        <button className='btn btn-add'>Add</button>
       </form>
       <h1 className='header'>Todo List</h1>
       <ul className='list'>
         {todos.map((todo) => {
           return (
-            <li key={todo.id}>
-              <label>
-                <input
-                  type='checkbox'
-                  checked={todo.completed}
-                  onChange={(e) => toggleTodo(todo.id, e.target.checked)}
-                />
-                {todo.title}
-              </label>
-              <button
-                onClick={() => deleteTodo(todo.id)}
-                className='btn btn-danger'
-              >
-                Delete
-              </button>
-            </li>
+            <List
+              todo={todo}
+              deleteTodo={deleteTodo}
+              toggleTodo={toggleTodo}
+              key={todo.id}
+            />
           );
         })}
       </ul>
