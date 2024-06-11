@@ -38,50 +38,41 @@ export default function App() {
 
   return (
     <>
-      <div className='bg-dark text-light wall'>
-        <div className='container d-flex justify-content-center align-center flex-wrap'>
-          <form
-            onSubmit={handleSubmit}
-            className='new-item-form d-flex justify-content-center align-center flex-wrap col-12 my-5'
-          >
-            <div className='row justify-content-center align-center flex-wrap'>
-              <div className='mb-3 col-12'>
-                <label>New Item</label>
-                <input
-                  value={newItem}
-                  onChange={(e) => setNewItem(e.target.value)}
-                  type='text'
-                  id='item'
-                />
-              </div>
-              <button className='btn btn-primary col-12 btn-add'>Add</button>
-            </div>
-          </form>
-          <h1 className='header'>Todo List</h1>
-          <ul className='list'>
-            {todos.map((todo) => {
-              return (
-                <li key={todo.id}>
-                  <label>
-                    <input
-                      type='checkbox'
-                      checked={todo.completed}
-                      onChange={(e) => toggleTodo(todo.id, e.target.checked)}
-                    />
-                    {todo.title}
-                  </label>
-                  <button
-                    onClick={() => deleteTodo(todo.id)}
-                    className='btn btn-danger'
-                  >
-                    Delete
-                  </button>
-                </li>
-              );
-            })}
-          </ul>
+      <form onSubmit={handleSubmit} className='new-item-form'>
+        <div className='form-row'>
+          <label htmlFor='item'>New Item</label>
+          <input
+            value={newItem}
+            onChange={(e) => setNewItem(e.target.value)}
+            type='text'
+            id='item'
+          />
         </div>
-      </div>
+        <button className='btn btn-primary col-12 btn-add'>Add</button>
+      </form>
+      <h1 className='header'>Todo List</h1>
+      <ul className='list'>
+        {todos.map((todo) => {
+          return (
+            <li key={todo.id}>
+              <label>
+                <input
+                  type='checkbox'
+                  checked={todo.completed}
+                  onChange={(e) => toggleTodo(todo.id, e.target.checked)}
+                />
+                {todo.title}
+              </label>
+              <button
+                onClick={() => deleteTodo(todo.id)}
+                className='btn btn-danger'
+              >
+                Delete
+              </button>
+            </li>
+          );
+        })}
+      </ul>
     </>
   );
 }
